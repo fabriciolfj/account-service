@@ -5,14 +5,14 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 @Builder
 public class Account {
 
@@ -25,7 +25,8 @@ public class Account {
 
     public Extract findExtractFirst() {
         if (Objects.nonNull(extracts) && !extracts.isEmpty()) {
-            var extract = extracts.stream().findFirst();
+            var extract = extracts.stream()
+                    .max(Comparator.comparing(Extract::getDate));
 
             if (!extract.isPresent()) {
                 throw new DomainException("Extract not found to account: " + uuid);

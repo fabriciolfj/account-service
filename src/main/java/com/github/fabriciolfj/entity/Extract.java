@@ -11,16 +11,17 @@ import java.util.UUID;
 @Setter
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 public class Extract {
 
-    private String code;
-    private String account;
+    @EqualsAndHashCode.Include
+    private String uuid;
+    private Account account;
     private BigDecimal debit;
     private BigDecimal credit;
     private BigDecimal balance;
     private LocalDateTime date;
+    private String description;
 
     public BigDecimal getBalancePositive() {
         if (balance.compareTo(BigDecimal.ZERO) < 0) {
@@ -30,18 +31,23 @@ public class Extract {
         return balance;
     }
 
-    public static Extract execute(final BigDecimal value, final TypeOperation typeOperation, final BigDecimal balance, final String account) {
+    public boolean isBalanceNegative() {
+        return balance.compareTo(BigDecimal.ZERO) < 0;
+    }
+
+    public static Extract execute(final BigDecimal value, final TypeOperation typeOperation, final BigDecimal balance, final Account account) {
         return switch (typeOperation) {
             case CREDIT -> Extract.builder()
-                    .code(UUID.randomUUID().toString())
+                    .uuid(UUID.randomUUID().toString())
                     .debit(BigDecimal.ZERO)
                     .credit(value)
                     .account(account)
                     .balance(balance.add(value))
                     .date(LocalDateTime.now())
+                    .description("Debit: ")
                     .build();
             case DEBIT -> Extract.builder()
-                    .code(UUID.randomUUID().toString())
+                    .uuid(UUID.randomUUID().toString())
                     .debit(value)
                     .account(account)
                     .credit(BigDecimal.ZERO)

@@ -15,7 +15,7 @@ public class ValidationOverdraft {
             return;
         }
 
-        if (extract.getBalancePositive().compareTo(account.getOverdraft()) < 0) {
+        if (extract.isBalanceNegative() && extract.getBalancePositive().compareTo(account.getOverdraft()) < 0) {
             throw new DomainException("Overdraft all limit used: " + extract.getBalance());
         };
     }
