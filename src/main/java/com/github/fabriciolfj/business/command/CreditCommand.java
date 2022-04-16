@@ -3,13 +3,14 @@ package com.github.fabriciolfj.business.command;
 import com.github.fabriciolfj.entity.Account;
 import com.github.fabriciolfj.entity.Extract;
 import com.github.fabriciolfj.entity.TypeOperation;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Getter
-@Builder
+
+
+
+@AllArgsConstructor
 public class CreditCommand {
 
     private Account account;

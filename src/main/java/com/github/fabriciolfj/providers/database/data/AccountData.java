@@ -1,7 +1,7 @@
 package com.github.fabriciolfj.providers.database.data;
 
-import com.github.fabriciolfj.entity.Extract;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class AccountData {
     private BigDecimal overdraft;
     @Column(name = "create_date", columnDefinition = "TIMESTAMP")
     private LocalDateTime createDate;
-    @OneToMany(mappedBy = "account")
-    private List<Extract> extracts;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST)
+    private List<ExtractData> extracts;
 
 }

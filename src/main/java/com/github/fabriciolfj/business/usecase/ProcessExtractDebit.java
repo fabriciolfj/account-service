@@ -17,10 +17,7 @@ public class ProcessExtractDebit {
 
     public Extract execute(final BigDecimal value, final String uuid) {
         var account = findAccount.find(uuid);
-        var command = DebitCommand.builder()
-                .account(account)
-                .value(value)
-                .build();
+        var command = new DebitCommand(account, value);
 
         return createDebit.execute(command);
     }

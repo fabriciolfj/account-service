@@ -3,13 +3,13 @@ package com.github.fabriciolfj.business.command;
 import com.github.fabriciolfj.entity.Account;
 import com.github.fabriciolfj.entity.Extract;
 import com.github.fabriciolfj.entity.TypeOperation;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 
-@Builder
 @Getter
+@AllArgsConstructor
 public class DebitCommand {
 
     private Account account;

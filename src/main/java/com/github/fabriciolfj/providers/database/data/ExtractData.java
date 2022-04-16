@@ -1,6 +1,7 @@
 package com.github.fabriciolfj.providers.database.data;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -26,5 +28,6 @@ public class ExtractData {
     @Column(name = "moviment_date", columnDefinition = "TIMESTAMP")
     private LocalDateTime movimentDate;
     @ManyToOne
+    @JoinColumn(name = "account_id")
     private AccountData account;
 }

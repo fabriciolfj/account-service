@@ -17,10 +17,7 @@ public class ProcessExtractCredit {
 
     public Extract execute(final BigDecimal value, final String uuid) {
         var account = findAccount.find(uuid);
-        var command = CreditCommand.builder()
-                .account(account)
-                .value(value)
-                .build();
+        var command = new CreditCommand(account, value);
 
         return createCredit.execute(command);
     }

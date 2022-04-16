@@ -35,6 +35,7 @@ public class Extract {
         return balance.compareTo(BigDecimal.ZERO) < 0;
     }
 
+
     public static Extract execute(final BigDecimal value, final TypeOperation typeOperation, final BigDecimal balance, final Account account) {
         return switch (typeOperation) {
             case CREDIT -> Extract.builder()

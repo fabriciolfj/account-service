@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +23,19 @@ public class Account {
     private LocalDateTime createDate;
     private BigDecimal overdraft;
     private List<Extract> extracts;
+
+    public Account init(final BigDecimal value) {
+        if (value.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new DomainException("Value invalid to create account: " + value);
+        }
+
+        if (Objects.isNull(extracts)) {
+            this.extracts = new ArrayList<>();
+        }
+
+        this.extracts.add(Extract.execute(value, TypeOperation.CREDIT, BigDecimal.ZERO, this));
+        return this;
+    }
 
     public Extract findExtractFirst() {
         if (Objects.nonNull(extracts) && !extracts.isEmpty()) {
