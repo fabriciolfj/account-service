@@ -4,7 +4,7 @@ on: push
 env:
   REGISTRY: docker.io
   IMAGE_NAME: fabricio211/account-service
-  VERSION: 1.0.0-SNAPSHOT
+  VERSION: latest
 
 jobs:
   build:
