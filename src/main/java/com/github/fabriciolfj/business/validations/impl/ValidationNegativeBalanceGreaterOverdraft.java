@@ -1,5 +1,6 @@
-package com.github.fabriciolfj.business.usecase;
+package com.github.fabriciolfj.business.validations.impl;
 
+import com.github.fabriciolfj.business.validations.ValidationOverdraft;
 import com.github.fabriciolfj.entity.Account;
 import com.github.fabriciolfj.entity.Extract;
 import com.github.fabriciolfj.exceptions.DomainException;
@@ -8,8 +9,9 @@ import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;
 
 @ApplicationScoped
-public class ValidationOverdraft {
+public class ValidationNegativeBalanceGreaterOverdraft implements ValidationOverdraft {
 
+    @Override
     public void execute(final Account account, final Extract extract) {
         if (account.getOverdraft().compareTo(BigDecimal.ZERO) == 0) {
             return;
