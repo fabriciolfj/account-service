@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: fabricio211/catalog-service
+  IMAGE_NAME: fabricio211/account-service
   VERSION: latest
 
 jobs:
