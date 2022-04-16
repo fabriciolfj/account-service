@@ -15,12 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CreateDebit {
 
-    private final List<ValidationOverdraft> validationOverdraft;
+    private final ValidationOverdraft validationOverdraft;
     private final SaveExtract saveExtract;
 
     public Extract execute(final DebitCommand command) {
         var extract = command.debit();
-        validationOverdraft.forEach(v -> v.execute(command.getAccount(), extract));
+        validationOverdraft.execute(command.getAccount(), extract);
 
         try {
             saveExtract.persistExtract(extract);
