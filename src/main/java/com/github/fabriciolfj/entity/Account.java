@@ -51,4 +51,9 @@ public class Account {
 
         throw new DomainException("Extracts is null to account: " + uuid);
     }
+
+    public Account addOverdraft(final BigDecimal value) {
+        overdraft = value;
+        return this;
+    }
 }
