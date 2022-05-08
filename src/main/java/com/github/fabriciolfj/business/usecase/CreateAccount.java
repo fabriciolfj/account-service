@@ -16,13 +16,11 @@ import javax.enterprise.context.ApplicationScoped;
 public class CreateAccount {
 
     private final SaveAccount saveAccount;
-    private final FindOverdraft findOverdraft;
     private final CreateLimitWithdraw createLimitWithdraw;
 
     public Account execute(final Account account) {
         try {
-            var result = findOverdraft.getOverdraft(account);
-            saveAccount.persist(result);
+            saveAccount.persist(account);
             createLimitWithdraw.execute(account);
 
             log.info("Account save: {}", account.getUuid());
