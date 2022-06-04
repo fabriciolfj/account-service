@@ -3,14 +3,17 @@ package com.github.fabriciolfj.providers.database.converter;
 import com.github.fabriciolfj.entity.Account;
 import com.github.fabriciolfj.providers.database.data.AccountData;
 import com.github.fabriciolfj.providers.database.data.ExtractData;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.stream.Collectors;
 
+@Slf4j
 public class AccountDataConverter {
 
     private AccountDataConverter() { }
 
     public static Account toEntity(final AccountData data) {
+        log.info("Data account: {}, overdraft", data.getUuid(), data.getOverdraft());
         return Account.builder()
                 .createDate(data.getCreateDate())
                 .customer(data.getCustomer())

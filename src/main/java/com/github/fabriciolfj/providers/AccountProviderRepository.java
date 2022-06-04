@@ -2,6 +2,7 @@ package com.github.fabriciolfj.providers;
 
 import com.github.fabriciolfj.business.FindAccountAndLastExtract;
 import com.github.fabriciolfj.business.SaveAccount;
+import com.github.fabriciolfj.business.validations.UpdateAccount;
 import com.github.fabriciolfj.entity.Account;
 import com.github.fabriciolfj.exceptions.DomainException;
 import com.github.fabriciolfj.providers.database.converter.AccountDataConverter;
@@ -10,10 +11,11 @@ import lombok.RequiredArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 
 @ApplicationScoped
 @RequiredArgsConstructor
-public class AccountProviderRepository implements SaveAccount, FindAccountAndLastExtract {
+public class AccountProviderRepository implements SaveAccount, FindAccountAndLastExtract, UpdateAccount {
 
     private final AccountRepository accountRepository;
 
@@ -29,5 +31,15 @@ public class AccountProviderRepository implements SaveAccount, FindAccountAndLas
         return accountRepository.findAccountByLastExtract(account)
                 .map(AccountDataConverter::toEntity)
                 .orElseThrow(() -> new DomainException("Fail find account : " + account));
+    }
+
+    @Override
+    @Transactional(Transactional.TxType.REQUIRED)
+    public void updateOverdraft(final String account, final BigDecimal overdraft) {
+        accountRepository.findAccountByLastExtract(account)
+                .map(d -> {
+                    d.setOverdraft(overdraft);
+                    return d;
+                }).orElseThrow(() -> new DomainException("Fail update overdraft account: " + account));
     }
 }
