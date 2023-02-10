@@ -1,6 +1,7 @@
 name: Commit Stage
 on: push
 
+
 env:
   REGISTRY: docker.io
   IMAGE_NAME: fabricio211/account-service
